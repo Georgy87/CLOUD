@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import "./registration.less";
+import { useDispatch } from "react-redux";
+import "./login.less";
 import Inputs from "../inputs/Inputs";
-import {registration} from '../../actions/user';
+import {login} from '../../actions/user';
 
-function Registration() {
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
 
     return (
         <div>
-            <div>Регистрация</div>
+            <div>Логин</div>
             <Inputs value={email} setValue={setEmail} text="text" placeholder="Введите email" />
             <Inputs value={password} setValue={setPassword} text="text" placeholder="Введите пароль" />
-            <button onClick={() => registration(email, password)} >Войти</button>
+            <button onClick={() => dispatch(login(email, password))} >Войти</button>
         </div>
     );
 }
 
-export default Registration;
+export default Login;
