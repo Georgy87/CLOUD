@@ -8,10 +8,17 @@ const Disk = () => {
     const currentDir = useSelector((state) => state.files.current);
     console.log(currentDir)
     useEffect(() => {
-
         dispatch(getFiles(currentDir));
     }, [currentDir]);
-    return <div>Disk</div>;
+    return (
+        <div>
+            <div>
+                <button>Назад</button>
+                <button>Создать папку</button>
+            </div>
+        </div>
+    )
+
 }
 
 export default Disk;
