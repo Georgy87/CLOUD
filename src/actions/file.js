@@ -23,7 +23,8 @@ export function getFiles(dirId) {
     };
 }
 
-export function createDir(dirId) {
+export function createDir(dirId, name) {
+    
     return async (dispatch) => {
         try {
             const response = await axios.post(
