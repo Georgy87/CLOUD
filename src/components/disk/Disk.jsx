@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {getFiles} from "../../actions/file";
+import FileList from "./fileList/FileList";
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Disk = () => {
             <div>
                 <button>Назад</button>
                 <button>Создать папку</button>
+                < FileList/>
             </div>
         </div>
     )

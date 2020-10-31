@@ -1,7 +1,6 @@
 import axios from "axios";
 import { setUser } from "../reducers/userReducer";
 
-
 export const registration = async (email, password) => {
     try {
         const result = await axios.post(
@@ -27,7 +26,6 @@ export const login = (email, password) => {
                     password,
                 }
             );
-            console.log(result);
 
             localStorage.setItem("token", result.data.token);
             return dispatch(setUser(result.data));
@@ -44,7 +42,6 @@ export const auth = () => {
                 "http://localhost:5000/api/auth/auth",
                 { headers: { Authorization : `Bearer ${localStorage.getItem('token')}`}}
             );
-            console.log(result);
             dispatch(setUser(result.data));
             localStorage.setItem("token", result.data.token);
         } catch (error) {

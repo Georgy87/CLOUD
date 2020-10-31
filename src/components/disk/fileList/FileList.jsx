@@ -1,21 +1,20 @@
 import React from "react";
 import File from "../fileList/file/File";
+import "../fileList/FileList.css";
+import {useSelector} from "react-redux";
 
 const FileList = () => {
-    const obj = [
-        { _id: 1, name: "direc", type: "dir", size: "5gb", date: "20.02.2020" },
-        { _id: 2, name: "direc2", type: "dir", size: "5gb", date: "20.02.2020" },
-    ];
-    const files =  obj.map((file) => (
-        <File key={file._id}/>
-    ));
+    const files = useSelector(state => state.files.files).map(file =>
+        <File key={file._id} file={file} />
+    )
     return (
-        <div>
-            <div>
-                <div>Название</div>
-                <div>Дата</div>
-                <div>Размер</div>
+        <div className="filelist">
+            <div className="filelist__header">
+                <div className="filelist__name">Название</div>
+                <div className="filelist__date">Дата</div>
+                <div className="filelist__size">Размер</div>
             </div>
+            {files}
         </div>
     );
 };

@@ -15,6 +15,11 @@ export default function fileReducer(state = initialState, action) {
                 ...state,
                 current: action.payload,
             };
+        case "ADD-FILE":
+            return {
+                ...state,
+                files: [...state.files, action.payload],
+            };
         default:
             return state;
     }
@@ -31,5 +36,13 @@ export const setCurrent = (current) => {
     return {
         type: "SET-CURRENT",
         payload: current
+    };
+};
+
+export const addFile= (file) => {
+    console.log(file)
+    return {
+        type: "ADD-FILE",
+        payload: file
     };
 };

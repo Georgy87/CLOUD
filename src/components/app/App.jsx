@@ -13,18 +13,19 @@ import Disk from '../disk/Disk';
 function App() {
     const isAuth = useSelector((state) => state.user.isAuth);
 
-    const login = () => {
-        axios.post(
-            "http://localhost:5000/api/files", { name: 'Привет', type: 'g'},
-            { headers: { Authorization : `Bearer ${localStorage.getItem('token')}`}}
-        );
+    // const login = () => {
+    //     axios.post(
+    //         "http://localhost:5000/api/files", { name:  'видио', type: 'g'},
+    //         { headers: { Authorization : `Bearer ${localStorage.getItem('token')}`}}
+    //     );
 
-        return;
-    };
-    if (isAuth) {
+    //     return;
+    // };
+    // if (isAuth) {
 
-        login()
-    }
+    //     login()
+    // }
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(auth());
