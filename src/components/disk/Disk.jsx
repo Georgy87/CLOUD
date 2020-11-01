@@ -9,6 +9,7 @@ import Popup from './Popup';
 const Disk = () => {
     const dispatch = useDispatch();
     const currentDir = useSelector((state) => state.files.current);
+    
     const onCreateDir = () => {
         dispatch(createDir(currentDir, 'мои фото'))
     }

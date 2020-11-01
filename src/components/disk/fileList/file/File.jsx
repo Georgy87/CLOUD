@@ -1,9 +1,15 @@
 import React from "react";
 import "../file/File.css";
+import { useDispatch } from 'react-redux';
+import { setCurrent } from '../../../../reducers/fileReducer';
 
 function File({ file }) {
+    const dispatch = useDispatch();
+    const onDirNext = () => {
+        dispatch(setCurrent(file._id));
+    }
     return (
-        <div className="file">
+        <div className="file" onClick={onDirNext}>
             {file.type === 'dir' ? <div src="" alt="" className="file__img">Direct</div> :
             <div src="" alt="" className="file__img">File</div>}
             <div className="file__name">{file.name}</div>

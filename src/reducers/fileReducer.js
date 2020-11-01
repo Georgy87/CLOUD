@@ -26,6 +26,7 @@ export default function fileReducer(state = initialState, action) {
 }
 
 export const setFile = (files) => {
+    console.log(files)
     return {
         type: "SET-FILE",
         payload: files
