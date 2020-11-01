@@ -6,7 +6,9 @@ import { setCurrent } from '../../../../reducers/fileReducer';
 function File({ file }) {
     const dispatch = useDispatch();
     const onDirNext = () => {
-        dispatch(setCurrent(file._id));
+        if (file.type === 'dir') {
+            dispatch(setCurrent(file._id));
+        }
     }
     return (
         <div className="file" onClick={onDirNext}>
