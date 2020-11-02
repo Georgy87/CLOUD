@@ -50,7 +50,7 @@ export function createDir(dirId, name) {
 }
 
 export function uploadFile(file, dirId) {
-    console.log(file)
+
     return async dispatch => {
         try {
             const formData = new FormData()
@@ -70,6 +70,7 @@ export function uploadFile(file, dirId) {
                     }
                 }
             });
+            console.log(response.data)
             dispatch(addFile(response.data))
         } catch (e) {
             alert(e.response.data.message)
