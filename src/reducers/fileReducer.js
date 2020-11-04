@@ -20,6 +20,11 @@ export default function fileReducer(state = initialState, action) {
                 ...state,
                 files: [...state.files, action.payload],
             };
+        case "DELETE-FILE":
+            return {
+                ...state,
+                files: [...state.files.filter(file => file._id !== action.payload)],
+            };
         default:
             return state;
     }
@@ -47,3 +52,10 @@ export const addFile= (file) => {
         payload: file
     };
 };
+
+export const deleteFile = (fileId) => {
+    return {
+        type: "DELETE-FILE",
+        payload: fileId
+    }
+}

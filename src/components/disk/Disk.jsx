@@ -34,10 +34,19 @@ const Disk = () => {
         setDrag(false);
     };
 
+    const onDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        let files = [...e.dataTransfer.files];
+        setDrag(false);
+        files.forEach((file) => dispatch(uploadFile(file, currentDir)));
+    }
+
     useEffect(() => {
         dispatch(getFiles(currentDir));
-    }, [currentDir]);
 
+    }, [currentDir]);
+    console.log(currentDir)
     return (
         <div>
             {!drag ? (
@@ -52,6 +61,7 @@ const Disk = () => {
                     <FileList />
                     <Popup />
                     <div>
+                        <img src="" alt=""/>
                         <label htmlFor="disk__upload-input">
                             Загрузить файл
                         </label>
@@ -69,6 +79,7 @@ const Disk = () => {
                     onDragEnter={dragEnter}
                     onDragLeave={dragLeave}
                     onDragOver={dragEnter}
+                    onDrop={onDrop}
                 >
                     Перетащите файлы
                 </div>
