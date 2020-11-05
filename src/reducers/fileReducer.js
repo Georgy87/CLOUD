@@ -31,7 +31,6 @@ export default function fileReducer(state = initialState, action) {
 }
 
 export const setFile = (files) => {
-    console.log(files)
     return {
         type: "SET-FILE",
         payload: files
@@ -46,7 +45,6 @@ export const setCurrent = (current) => {
 };
 
 export const addFile= (file) => {
-    console.log(file)
     return {
         type: "ADD-FILE",
         payload: file

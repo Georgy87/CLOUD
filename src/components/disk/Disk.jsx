@@ -7,12 +7,13 @@ import { createDir } from "../../actions/file";
 import Popup from "./Popup";
 import { uploadFile } from "../../actions/file";
 import "./Disk.css";
-import Uploader from './uploader/Uploader';
+import Uploader from "./uploader/Uploader";
 
 const Disk = () => {
     const dispatch = useDispatch();
     const currentDir = useSelector((state) => state.files.current);
     const [drag, setDrag] = useState(false);
+    const [sort, setSort] = useState("type");
 
     const onCreateDir = () => {
         dispatch(createDir(currentDir, "мои фото"));
@@ -41,13 +42,11 @@ const Disk = () => {
         let files = [...e.dataTransfer.files];
         setDrag(false);
         files.forEach((file) => dispatch(uploadFile(file, currentDir)));
-    }
+    };
 
     useEffect(() => {
-        dispatch(getFiles(currentDir));
-
-    }, [currentDir]);
-    console.log(currentDir)
+        dispatch(getFiles(currentDir, sort));
+    }, [currentDir, sort]);
     return (
         <div>
             {!drag ? (
@@ -59,11 +58,16 @@ const Disk = () => {
                 >
                     <button>Назад</button>
                     <button onClick={onCreateDir}>Создать папку</button>
+                    <select className="disc__select" value={sort} onChange={(e) => setSort(e.target.value)}>
+                        <option value="name">По имени</option>
+                        <option value="type">По типу</option>
+                        <option value="date">По дате</option>
+                    </select>
                     <FileList />
                     <Popup />
                     <Uploader />
                     <div>
-                        <img src="" alt=""/>
+                        <img src="" alt="" />
                         <label htmlFor="disk__upload-input">
                             Загрузить файл
                         </label>

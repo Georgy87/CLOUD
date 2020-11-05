@@ -15,7 +15,7 @@ const FileList = () => {
             </div>
             <TransitionGroup>
                 {files.map((file) => (
-                    <CSSTransition key={file._id} timeout={10000} classNames={'file'} exit={false}>
+                    <CSSTransition key={file._id} timeout={1000} classNames={'file'} exit={false}>
                         <File file={file} />
                     </CSSTransition>
                 ))}
