@@ -7,6 +7,7 @@ import { createDir } from "../../actions/file";
 import Popup from "./Popup";
 import { uploadFile } from "../../actions/file";
 import "./Disk.css";
+import Uploader from './uploader/Uploader';
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const Disk = () => {
                     <button onClick={onCreateDir}>Создать папку</button>
                     <FileList />
                     <Popup />
+                    <Uploader />
                     <div>
                         <img src="" alt=""/>
                         <label htmlFor="disk__upload-input">

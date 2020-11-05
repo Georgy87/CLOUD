@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setFile, addFile, deleteFile } from "../reducers/fileReducer";
+import { addUploaderFile, changeUploaderFile, showUploader } from "../reducers/uploadReducer";
 
 export function getFiles(dirId) {
     return async (dispatch) => {
@@ -53,10 +54,15 @@ export function uploadFile(file, dirId) {
         try {
             const formData = new FormData();
             formData.append("file", file);
-            
+
             if (dirId) {
                 formData.append("parent", dirId);
             }
+
+            const uploadFile = {name: file.name, progress: 0, id: Date.now()};
+            dispatch(showUploader());
+            dispatch(addUploaderFile(uploadFile));
+
             const response = await axios.post(
                 `http://localhost:5000/api/files/upload`,
                 formData,
@@ -77,18 +83,17 @@ export function uploadFile(file, dirId) {
                               );
                         console.log("total", totalLength);
                         if (totalLength) {
-                            let progress = Math.round(
+                            uploadFile.progress = Math.round(
                                 (progressEvent.loaded * 100) / totalLength
                             );
-                            console.log(progress);
+                            dispatch(changeUploaderFile(uploadFile))
                         }
                     },
                 }
             );
-            console.log(response.data);
             dispatch(addFile(response.data));
         } catch (e) {
-            alert(e.response.data.message);
+            console.log(e)
         }
     };
 }
@@ -113,11 +118,9 @@ export async function downloadFile(file) {
         link.click();
         link.remove();
     }
-    console.log(response);
 }
 
 export function deleteFiles(file) {
-    console.log(file)
     return async (dispatch) => {
         try {
             const response = await axios.delete(
@@ -129,7 +132,6 @@ export function deleteFiles(file) {
                 }
             );
             dispatch(deleteFile(file._id));
-            console.log(response.data.message)
         } catch (error) {
             console.log(error.response.data.message);
         }
