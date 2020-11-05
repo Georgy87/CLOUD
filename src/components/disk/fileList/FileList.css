@@ -16,3 +16,18 @@
   grid-column-start: 6;
   justify-self: center;
 }
+.file-enter-active {
+  animation: file-enter 5000ms forwards;
+}
+@keyframes file-enter {
+  0% {
+    opacity: 0;
+    background-color: yellow;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    background-color: rgb(34, 126, 57);
+    transform: translateX(0);
+  }
+}

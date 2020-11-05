@@ -4,11 +4,10 @@ import { useDispatch } from 'react-redux';
 import { setCurrent} from '../../../../reducers/fileReducer';
 import { deleteFiles } from '../../../../actions/file';
 import { downloadFile } from "../../../../actions/file";
-
+import sizeFormat from "../../../../utils/sizeFormat";
 
 function File({ file }) {
     const dispatch = useDispatch();
-
     const onDirNext = () => {
         if (file.type === 'dir') {
             dispatch(setCurrent(file._id));
@@ -31,7 +30,7 @@ function File({ file }) {
             <div src="" alt="" className="file__img">File</div>}
             <div className="file__name">{file.name}</div>
             <div className="file__date">{file.date.slice(0, 10)}</div>
-            <div className="file__size">{file.size}</div>
+            <div className="file__size">{sizeFormat(file.size)}</div>
             {file.type !== 'dir' && <button onClick={(e) => onClickHandler(e)}>download</button>}
             <button onClick={(e) => onDeleteFile(e)}>delete</button>
             <img src="" alt=""/>
