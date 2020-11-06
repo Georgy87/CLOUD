@@ -6,7 +6,6 @@ import {createDir} from "../../actions/file";
 
 const Popup = (props) => {
     const [dirName, setDirName ] = useState('');
-    console.log(dirName);
     const dispatch = useDispatch();
 
     const currentDir = useSelector((state) => state.files.current);

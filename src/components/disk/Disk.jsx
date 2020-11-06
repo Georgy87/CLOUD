@@ -14,6 +14,7 @@ const Disk = () => {
     const currentDir = useSelector((state) => state.files.current);
     const [drag, setDrag] = useState(false);
     const [sort, setSort] = useState("type");
+    const loader = useSelector((state) => state.loader.loader);
 
     const onCreateDir = () => {
         dispatch(createDir(currentDir, "мои фото"));
@@ -47,6 +48,23 @@ const Disk = () => {
     useEffect(() => {
         dispatch(getFiles(currentDir, sort));
     }, [currentDir, sort]);
+
+    if (loader) {
+        return (
+            <div className="loader">
+                <div className="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        );
+    }
     return (
         <div>
             {!drag ? (
@@ -58,7 +76,11 @@ const Disk = () => {
                 >
                     <button>Назад</button>
                     <button onClick={onCreateDir}>Создать папку</button>
-                    <select className="disc__select" value={sort} onChange={(e) => setSort(e.target.value)}>
+                    <select
+                        className="disc__select"
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value)}
+                    >
                         <option value="name">По имени</option>
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>

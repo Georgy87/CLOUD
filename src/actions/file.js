@@ -1,10 +1,12 @@
 import axios from "axios";
 import { setFile, addFile, deleteFile } from "../reducers/fileReducer";
 import { addUploaderFile, changeUploaderFile, showUploader } from "../reducers/uploadReducer";
+import { hideLoader, showLoader } from '../reducers/loaderReducer';
 
 export function getFiles(dirId, sort) {
     return async (dispatch) => {
         try {
+            dispatch(showLoader());
             let url = 'http://localhost:5000/api/files';
 
             if (dirId) {
@@ -14,7 +16,7 @@ export function getFiles(dirId, sort) {
             if (sort) {
                 url = `http://localhost:5000/api/files?sort=${sort}`;
             }
-            
+
             if (dirId && sort) {
                 url = `http://localhost:5000/api/files?parent=${dirId}&sort=${sort}`;
             }
@@ -32,6 +34,8 @@ export function getFiles(dirId, sort) {
             dispatch(setFile(response.data));
         } catch (error) {
             console.log(error.response.data.message);
+        } finally {
+            dispatch(hideLoader());
         }
     };
 }
@@ -146,6 +150,26 @@ export function deleteFiles(file) {
             dispatch(deleteFile(file._id));
         } catch (error) {
             console.log(error.response.data.message);
+        }
+    };
+}
+
+export function searchFile(search) {
+    console.log(search);
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(
+                `http://localhost:5000/api/files/search?search=${search}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+            console.log(response.data)
+            dispatch(setFile(response.data));
+        } catch (error) {
+            // console.log(error.response.data.message);
         }
     };
 }
