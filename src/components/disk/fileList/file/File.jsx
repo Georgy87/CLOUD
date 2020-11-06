@@ -1,17 +1,21 @@
 import React from "react";
 import "../file/File.css";
 import { useDispatch } from 'react-redux';
-import { setCurrent} from '../../../../reducers/fileReducer';
+import { pushToStack, setCurrent} from '../../../../reducers/fileReducer';
 import { deleteFiles } from '../../../../actions/file';
 import { downloadFile } from "../../../../actions/file";
 import sizeFormat from "../../../../utils/sizeFormat";
+import { useSelector } from 'react-redux';
 
 function File({ file }) {
     const dispatch = useDispatch();
+    const currentDir = useSelector(state => state.files.current);
+
     const onDirNext = () => {
         if (file.type === 'dir') {
             dispatch(setCurrent(file._id));
         }
+        dispatch(pushToStack(currentDir));
     }
 
     const onClickHandler = (e) => {

@@ -1,6 +1,7 @@
 const initialState = {
     files: [],
     current: null,
+    dirStack: []
 };
 
 export default function fileReducer(state = initialState, action) {
@@ -25,6 +26,11 @@ export default function fileReducer(state = initialState, action) {
                 ...state,
                 files: [...state.files.filter(file => file._id !== action.payload)],
             };
+        case "PUSH_TO_STACK":
+            return {
+                ...state,
+                dirStack: [...state.dirStack, action.payload]
+            }
         default:
             return state;
     }
@@ -57,3 +63,12 @@ export const deleteFile = (fileId) => {
         payload: fileId
     }
 }
+
+export const pushToStack = (dir) => {
+    return {
+        type: "PUSH_TO_STACK",
+        payload: dir
+    }
+}
+
+

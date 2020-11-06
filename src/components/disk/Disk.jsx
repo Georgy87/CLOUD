@@ -8,6 +8,7 @@ import Popup from "./Popup";
 import { uploadFile } from "../../actions/file";
 import "./Disk.css";
 import Uploader from "./uploader/Uploader";
+import { setCurrent } from '../../reducers/fileReducer';
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Disk = () => {
     const [drag, setDrag] = useState(false);
     const [sort, setSort] = useState("type");
     const loader = useSelector((state) => state.loader.loader);
+    const dirStack = useSelector(state => state.files.dirStack);
 
     const onCreateDir = () => {
         dispatch(createDir(currentDir, "мои фото"));
@@ -45,6 +47,12 @@ const Disk = () => {
         files.forEach((file) => dispatch(uploadFile(file, currentDir)));
     };
 
+    const backClickHandler = () => {
+        const backDirId = dirStack.pop();
+        console.log( backDirId);
+        dispatch(setCurrent(backDirId));
+    }
+
     useEffect(() => {
         dispatch(getFiles(currentDir, sort));
     }, [currentDir, sort]);
@@ -74,7 +82,7 @@ const Disk = () => {
                     onDragLeave={dragLeave}
                     onDragOver={dragEnter}
                 >
-                    <button>Назад</button>
+                    <button onClick={() => backClickHandler()}>Назад</button>
                     <button onClick={onCreateDir}>Создать папку</button>
                     <select
                         className="disc__select"
