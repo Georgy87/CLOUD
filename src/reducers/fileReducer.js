@@ -1,7 +1,8 @@
 const initialState = {
     files: [],
     current: null,
-    dirStack: []
+    dirStack: [],
+    view: "list",
 };
 
 export default function fileReducer(state = initialState, action) {
@@ -24,13 +25,22 @@ export default function fileReducer(state = initialState, action) {
         case "DELETE-FILE":
             return {
                 ...state,
-                files: [...state.files.filter(file => file._id !== action.payload)],
+                files: [
+                    ...state.files.filter(
+                        (file) => file._id !== action.payload
+                    ),
+                ],
             };
         case "PUSH_TO_STACK":
             return {
                 ...state,
-                dirStack: [...state.dirStack, action.payload]
-            }
+                dirStack: [...state.dirStack, action.payload],
+            };
+        case "SET_VIEW":
+            return {
+                ...state,
+                view: action.payload,
+            };
         default:
             return state;
     }
@@ -39,36 +49,41 @@ export default function fileReducer(state = initialState, action) {
 export const setFile = (files) => {
     return {
         type: "SET-FILE",
-        payload: files
+        payload: files,
     };
 };
 
 export const setCurrent = (current) => {
     return {
         type: "SET-CURRENT",
-        payload: current
+        payload: current,
     };
 };
 
-export const addFile= (file) => {
+export const addFile = (file) => {
     return {
         type: "ADD-FILE",
-        payload: file
+        payload: file,
     };
 };
 
 export const deleteFile = (fileId) => {
     return {
         type: "DELETE-FILE",
-        payload: fileId
-    }
-}
+        payload: fileId,
+    };
+};
 
 export const pushToStack = (dir) => {
     return {
         type: "PUSH_TO_STACK",
-        payload: dir
-    }
-}
+        payload: dir,
+    };
+};
 
-
+export const setFileView = (payload) => {
+    return {
+        type: "SET_VIEW",
+        payload: payload,
+    };
+};

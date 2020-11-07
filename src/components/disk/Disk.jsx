@@ -8,7 +8,7 @@ import Popup from "./Popup";
 import { uploadFile } from "../../actions/file";
 import "./Disk.css";
 import Uploader from "./uploader/Uploader";
-import { setCurrent } from '../../reducers/fileReducer';
+import { setCurrent, setFileView } from '../../reducers/fileReducer';
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -49,7 +49,6 @@ const Disk = () => {
 
     const backClickHandler = () => {
         const backDirId = dirStack.pop();
-        console.log( backDirId);
         dispatch(setCurrent(backDirId));
     }
 
@@ -93,6 +92,8 @@ const Disk = () => {
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>
                     </select>
+                    <button className="disk__plate" onClick={() => dispatch(setFileView('plate'))}>Плитка</button>
+                    <button className="disk__list" onClick={() => dispatch(setFileView('list'))}>Список</button>
                     <FileList />
                     <Popup />
                     <Uploader />

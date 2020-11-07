@@ -31,3 +31,10 @@
     transform: translateX(0);
   }
 }
+.fileplate {
+  display: flex;
+}
+.file__img {
+  width: 150px;
+  height: 150px;
+}
